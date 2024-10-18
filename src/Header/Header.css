@@ -1,0 +1,13 @@
+.shoppingCart {
+    float: right;
+    margin-top: 2%;
+  }
+  
+  .reactIcons {
+    width: 5em;
+    height: 4em;
+  }
+  
+  .count {
+    margin-left: 36%;
+  }
