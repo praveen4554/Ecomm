@@ -1,186 +1,391 @@
-
 import axios from 'axios';
-import {  useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { reset } from "../Redux/Reducer/Cart";
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { reset } from '../Redux/Reducer/Cart';
 
 const Checkout = () => {
     const cartItems = useSelector((state) => state.itemCart?.items);
     const [emailId, setEmailId] = useState('');
-    const [billingAddress, setBillingAddress] = useState('');
-    const [state, setState] = useState('');
-    const [zip, setZip] = useState('');
-    const amount = cartItems?.reduce((acc, cur) => acc + parseFloat(cur.price) * cur.quantity, 0);
-    const tax = 8.01;
-    const allStates = [
-        "Andhra Pradesh",
-        "Arunachal Pradesh",
-        "Assam",
-        "Bihar",
-        "Chhattisgarh",
-        "Goa",
-        "Gujarat",
-        "Haryana",
-        "Himachal Pradesh",
-        "Jammu and Kashmir",
-        "Jharkhand",
-        "Karnataka",
-        "Kerala",
-        "Madhya Pradesh",
-        "Maharashtra",
-        "Manipur",
-        "Meghalaya",
-        "Mizoram",
-        "Nagaland",
-        "Odisha",
-        "Punjab",
-        "Rajasthan",
-        "Sikkim",
-        "Tamil Nadu",
-        "Telangana",
-        "Tripura",
-        "Uttarakhand",
-        "Uttar Pradesh",
-        "West Bengal",
-        "Andaman and Nicobar Islands",
-        "Chandigarh",
-        "Dadra and Nagar Haveli",
-        "Daman and Diu",
-        "Delhi",
-        "Lakshadweep",
-        "Puducherry"
-    ];
-    const navigate = useNavigate(); 
+    const [isAddressFilled, setIsAddressFilled] = useState(false);
+    const [deliveryMethod, setDeliveryMethod] = useState('Ship');
+    const [paymentMethod, setPaymentMethod] = useState('Credit Card');
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        company: '',
+        address: '',
+        apartment: '',
+        city: '',
+        state: '',
+        zip: '',
+        phone: '',
+    });
+    const [saveInfo, setSaveInfo] = useState(false);
+    const [billingSame, setBillingSame] = useState(true);
+
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const amount = cartItems?.reduce(
+        (acc, cur) => acc + parseFloat(cur.price) * cur.quantity,
+        0
+    );
+    const tax = 8.01;
+
+    const allStates = [
+        'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa',
+        'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jammu and Kashmir', 'Jharkhand', 'Karnataka',
+        'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram',
+        'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana',
+        'Tripura', 'Uttarakhand', 'Uttar Pradesh', 'West Bengal', 'Andaman and Nicobar Islands',
+        'Chandigarh', 'Dadra and Nagar Haveli', 'Daman and Diu', 'Delhi', 'Lakshadweep', 'Puducherry'
+    ];
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
     const placeOrder = async () => {
+        const { firstName, lastName, address, city, state, zip } = formData;
+        if (!emailId || !firstName || !lastName || !address || !city || !state || !zip) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
         try {
-            await axios.post('http://localhost:2999/getOrder',{productList: cartItems, emailId: emailId, address: `${billingAddress} ${state} ${zip}`}, {
-                headers: {
-                'Content-Type': 'application/json'
-                }
-              });
-            alert('order placed');
+            await axios.post('http://localhost:2999/getOrder', {
+                productList: cartItems,
+                emailId,
+                addressDetails: `${address} ${city} ${state} ${zip}`,
+            }, {
+                headers: { 'Content-Type': 'application/json' },
+            });
+            alert('Order placed successfully');
             dispatch(reset());
             navigate('/');
-        } catch(err) {
-
+        } catch (err) {
+            console.error('Order placement failed:', err);
         }
-    }
+    };
+
     return (
-        <>
-            <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
-                <div className="px-4 pt-8">
-                    <p className="text-xl font-medium">Order Summary</p>
-                    <p className="text-gray-400">Check your items. And select a suitable shipping method.</p>
-                    <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-                        {cartItems.map((product,index) => <div className="flex flex-col rounded-lg bg-white sm:flex-row" key={index}>
-                            <img className="m-2 h-24 w-28 rounded-md border object-cover object-center" src={product.img} width={110} height={94} alt="" />
-                            <div className="flex w-full flex-col px-4 py-4">
-                                <span className="font-semibold">{product.productName}</span>
-                                <span className="float-right text-gray-400">{product.color}</span>
-                                <p className="text-lg font-bold">${product.price}</p>
-                            </div>
-                        </div>)}
-                    </div>
-
-                    <p className="mt-8 text-lg font-medium">Shipping Methods</p>
-                    <form className="mt-5 grid gap-6">
-                        <div className="relative">
-                            <input className="peer hidden" id="radio_1" type="radio" name="radio" checked />
-                            <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-                            <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" htmlFor="radio_1">
-                                <img className="w-14 object-contain" src="/images/naorrAeygcJzX0SyNI4Y0.png" alt="" />
-                                <div className="ml-5">
-                                    <span className="mt-2 font-semibold">Fedex Delivery</span>
-                                    <p className="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
-                                </div>
-                            </label>
-                        </div>
-                        <div className="relative">
-                            <input className="peer hidden" id="radio_2" type="radio" name="radio" checked />
-                            <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-                            <label className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" htmlFor="radio_2">
-                                <img className="w-14 object-contain" src="/images/oG8xsl3xsOkwkMsrLGKM4.png" alt="" />
-                                <div className="ml-5">
-                                    <span className="mt-2 font-semibold">Fedex Delivery</span>
-                                    <p className="text-slate-500 text-sm leading-6">Delivery: 2-4 Days</p>
-                                </div>
-                            </label>
-                        </div>
-                    </form>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-6 lg:px-20 py-10">
+            {/* Left Section */}
+            <div className="h-screen overflow-y-scroll pr-4 ">
+                <p className="text-center text-gray-500 mb-4">Express checkout</p>
+                <div className="payment-button flex justify-between items-center space-x-4 mb-4">
+                    <button className="shop-pay bg-purple-600 text-white w-full py-3 rounded-md font-semibold text-lg">
+                        <span className="text-white">Shop</span>
+                        <span className="ml-1 bg-white text-purple-600 p-1 rounded">Pay</span>
+                    </button>
+                    <button className="paypal bg-yellow-500 text-blue-800 w-full py-3 rounded-md font-semibold text-lg">
+                        PayPal
+                    </button>
+                    <button className="gpay bg-black text-white w-full py-3 rounded-md font-semibold text-lg">
+                        Google Pay
+                    </button>
                 </div>
-                <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
-                    <p className="text-xl font-medium">Payment Details</p>
-                    <p className="text-gray-400">Complete your order by providing your payment details.</p>
-                    <div className="">
-                        <label htmlFor="email" className="mt-4 mb-2 block text-sm font-medium">Email</label>
-                        <div className="relative">
-                            <input type="text" id="email" name="email" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="your.email@gmail.com" value={emailId} onChange={(e) => setEmailId(e.target.value)}/>
-                            <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                                </svg>
+                <p className="text-center text-gray-500">—— OR ——</p>
+                <h2 className="text-xl font-semibold mb-4">Contact</h2>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    className="w-full p-3 border rounded-md mb-4"
+                    value={emailId}
+                    onChange={(e) => setEmailId(e.target.value)}
+                />
+                <div className="flex items-center mb-6">
+                    <input type="checkbox" id="offers" className="mr-2" />
+                    <label htmlFor="offers">Email me with news and offers</label>
+                </div>
+
+                <h2 className="text-xl font-semibold mb-4">Delivery</h2>
+                <div className="flex items-center space-x-4 mb-6">
+                    <label className="flex items-center space-x-2">
+                        <input
+                            type="radio"
+                            name="delivery"
+                            checked={deliveryMethod === 'Ship'}
+                            onChange={() => setDeliveryMethod('Ship')}
+                        />
+                        <span>Ship</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                        <input
+                            type="radio"
+                            name="delivery"
+                            checked={deliveryMethod === 'Pickup'}
+                            onChange={() => setDeliveryMethod('Pickup')}
+                        />
+                        <span>Pickup in store</span>
+                    </label>
+                </div>
+
+                <select className="w-full p-3 border rounded-md mb-4">
+                    <option value="">Country/Region</option>
+                    <option value="IN">India</option>
+                    <option value="US">USA</option>
+                    <option value="Uk">UK</option>
+                </select>
+
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                    <input
+                        type="text"
+                        name="firstName"
+                        placeholder="First name"
+                        className="p-3 border rounded-md"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                    />
+                    <input
+                        type="text"
+                        name="lastName"
+                        placeholder="Last name"
+                        className="p-3 border rounded-md"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <input
+                    type="text"
+                    name="company"
+                    placeholder="Company (optional)"
+                    className="w-full p-3 border rounded-md mb-4"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                />
+
+                <input
+                    type="text"
+                    name="address"
+                    placeholder="Address"
+                    className="w-full p-3 border rounded-md mb-4"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                />
+
+                <input
+                    type="text"
+                    name="apartment"
+                    placeholder="Apartment, suite, etc. (optional)"
+                    className="w-full p-3 border rounded-md mb-4"
+                    value={formData.apartment}
+                    onChange={handleInputChange}
+                />
+
+                <div className="grid grid-cols-3 gap-4 mb-4">
+                    <input
+                        type="text"
+                        name="city"
+                        placeholder="City"
+                        className="p-3 border rounded-md"
+                        value={formData.city}
+                        onChange={handleInputChange}
+                    />
+                    <select
+                        name="state"
+                        className="p-3 border rounded-md"
+                        value={formData.state}
+                        onChange={handleInputChange}
+                    >
+                        <option value="">State</option>
+                        {allStates.map((state, index) => (
+                            <option key={index} value={state}>{state}</option>
+                        ))}
+                    </select>
+                    <input
+                        type="text"
+                        name="zip"
+                        placeholder="ZIP Code"
+                        className="p-3 border rounded-md"
+                        value={formData.zip}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <input
+                    type="text"
+                    name="phone"
+                    placeholder="Phone (optional)"
+                    className="w-full p-3 border rounded-md"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                />
+                <h2 className="text-xl font-semibold mb-4">Shipping Method</h2>
+                <div className="p-4 bg-gray-50 rounded-md">
+                    {isAddressFilled ? (
+                        ['Standard', 'Express'].map((method) => (
+                            <div key={method}>
+                                <input
+                                    type="radio"
+                                    id={method}
+                                    name="shippingMethod"
+                                    checked={deliveryMethod === method}
+                                    onChange={() => setDeliveryMethod(method)}
+                                />
+                                <label htmlFor={method} className="ml-2">
+                                    {method} Shipping
+                                </label>
                             </div>
-                        </div>
-                        <label htmlFor="card-holder" className="mt-4 mb-2 block text-sm font-medium">Card Holder</label>
-                        <div className="relative">
-                            <input type="text" id="card-holder" name="card-holder" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Your full name here" />
-                            <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <label htmlFor="card-no" className="mt-4 mb-2 block text-sm font-medium">Card Details</label>
-                        <div className="flex">
-                            <div className="relative w-7/12 flex-shrink-0">
-                                <input type="text" id="card-no" name="card-no" className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="xxxx-xxxx-xxxx-xxxx" />
-                                <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-                                    <svg className="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                        <path d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1z" />
-                                        <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm13 2v5H1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm-1 9H2a1 1 0 0 1-1-1v-1h14v1a1 1 0 0 1-1 1z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <input type="text" name="credit-expiry" className="w-full rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="MM/YY" />
-                            <input type="text" name="credit-cvc" className="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="CVC" />
-                        </div>
-                        <label htmlFor="billing-address" className="mt-4 mb-2 block text-sm font-medium">Billing Address</label>
-                        <div className="flex flex-col sm:flex-row">
-                            <div className="relative flex-shrink-0 sm:w-7/12">
-                                <input type="text" id="billing-address" name="billing-address" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Street Address" value={billingAddress} onChange={(e) => setBillingAddress(e.target.value)}/>
-                                {/* <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-                                    <img className="h-4 w-4 object-contain" src="https://flagpack.xyz/_nuxt/4c829b6c0131de7162790d2f897a90fd.svg" alt="" />
-                                </div> */}
-                            </div>
-                            <select type="text" name="billing-state" value={state} onChange={(e) => setState(e.target.value)} className="w-full rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500">
-                                <option value="">State</option>
-                                {allStates.map((state,index) => <option value={state} key={index}>{state}</option>)}
-                            </select>
-                            <input type="text" name="billing-zip" className="flex-shrink-0 rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="ZIP" value={zip} onChange={(e) => setZip(e.target.value)}/>
+                        ))
+                    ) : (
+                        <p>Enter your address to view shipping options.</p>
+                    )}
+                </div>
+                <h2 className="text-xl font-semibold mt-8 mb-4">Payment</h2>
+                <p className="text-sm text-gray-500 mb-4">
+                    All transactions are secure and encrypted.
+                </p>
+                <div className="border p-4 rounded-md mb-4">
+                    <div className="border p-4 rounded-md mb-4">
+                        {/* Credit Card Payment Method */}
+                        <div className="flex items-center mb-4">
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                checked={paymentMethod === 'Credit Card'}
+                                onChange={() => setPaymentMethod('Credit Card')}
+                            />
+                            <label className="ml-2">Credit Card</label>
                         </div>
 
-                        <div className="mt-6 border-t border-b py-2">
-                            <div className="flex items-center justify-between">
-                                <p className="text-sm font-medium text-gray-900">Subtotal</p>
-                                <p className="font-semibold text-gray-900">${amount}</p>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <p className="text-sm font-medium text-gray-900">Shipping</p>
-                                <p className="font-semibold text-gray-900">${tax}</p>
-                            </div>
+                        {/* New Radio Button - UPI */}
+                        <div className="flex items-center mb-4">
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                checked={paymentMethod === 'UPI'}
+                                onChange={() => setPaymentMethod('UPI')}
+                            />
+                            <label className="ml-2">PayPal</label>
                         </div>
-                        <div className="mt-6 flex items-center justify-between">
-                            <p className="text-sm font-medium text-gray-900">Total</p>
-                            <p className="text-2xl font-semibold text-gray-900">${amount + parseFloat(tax)}</p>
+
+                        {/* New Radio Button - Pay on Delivery */}
+                        <div className="flex items-center mb-4">
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                checked={paymentMethod === 'Pay on Delivery'}
+                                onChange={() => setPaymentMethod('Pay on Delivery')}
+                            />
+                            <label className="ml-2">Shoppay</label>
+                        </div>
+
+                        {/* Conditional Rendering for Credit Card Fields */}
+                        {paymentMethod === 'Credit Card' && (
+                            <>
+                                <input
+                                    type="text"
+                                    placeholder="Card number"
+                                    className="w-full p-3 border rounded-md mb-4"
+                                />
+                                <div className="grid grid-cols-2 gap-4">
+                                    <input
+                                        type="text"
+                                        placeholder="Expiration date (MM / YY)"
+                                        className="p-3 border rounded-md"
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="Security code"
+                                        className="p-3 border rounded-md"
+                                    />
+                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="Name on card"
+                                    className="w-full p-3 border rounded-md mt-4"
+                                />
+                            </>
+                        )}
+
+                        {/* Conditional Rendering for UPI Payment */}
+                        {paymentMethod === 'UPI' && (
+                            <input
+                                type="text"
+                                placeholder="Enter PayPal ID"
+                                className="w-full p-3 border rounded-md mt-4"
+                            />
+                        )}
+
+
+                        {/* Billing Address Checkbox */}
+                        <div className="flex items-center mt-4">
+                            <input
+                                type="checkbox"
+                                checked={billingSame}
+                                onChange={() => setBillingSame(!billingSame)}
+                            />
+                            <label className="ml-2">Same as shipping address</label>
+
+
                         </div>
                     </div>
-                    <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" onClick={placeOrder}>Place Order</button>
                 </div>
+
+                <label className="ml-2">Remember me</label>
+                <div className="flex items-center mb-6">
+
+                    <input type="checkbox" id="saveInfo" className="mr-2" />
+                    <label htmlFor="saveInfo">Save my information for a faster checkout</label>
+                </div>
+
+                <button
+                    className="w-full bg-blue-600 text-white py-3 rounded-md"
+                    onClick={placeOrder}
+                >
+                    Pay now
+                </button>
             </div>
-        </>
-    )
-}
+
+
+            {/* Right Section - Order Summary */}
+            <div className="sticky top-10 bg-gray-50 p-6 rounded-lg shadow-md h-max">
+                <h2 className="text-xl font-semibold mb-6">Order Summary</h2>
+                <div className="mb-6">
+                    {cartItems.map((product, index) => (
+                        <div key={index} className="flex items-center space-x-4 mb-4">
+                            <img
+                                src={product.img}
+                                alt={product.productName}
+                                className="w-16 h-16 object-cover rounded"
+                            />
+                            <div className="flex-1">
+                                <h3 className="font-semibold">{product.productName}</h3>
+                                <p className="text-gray-500">{product.color}</p>
+                            </div>
+                            <p className="font-semibold">${product.price}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="border-t pt-4">
+                    <div className="flex justify-between mb-2">
+                        <p>Subtotal</p>
+                        <p>${amount.toFixed(2)}</p>
+                    </div>
+                    <div className="flex justify-between mb-2">
+                        <p>Shipping</p>
+                        <p>${tax.toFixed(2)}</p>
+                    </div>
+                    <div className="flex justify-between font-bold text-lg">
+                        <p>Total</p>
+                        <p>${(amount + tax).toFixed(2)}</p>
+                    </div>
+                </div>
+
+                {/* <button
+                    className="w-full bg-black text-white py-3 mt-6 rounded-md"
+                    onClick={placeOrder}
+                >
+                    Place Order
+                </button> */}
+            </div>
+        </div>
+    );
+};
 
 export default Checkout;
