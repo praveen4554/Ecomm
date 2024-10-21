@@ -48,7 +48,6 @@ const ProductList = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         // async function fetchData() {
-
         //     try {
         //         const list = await axios.get('http://localhost:2999/products');
         //         dispatch(addAllProducts(list.data.products));
@@ -58,13 +57,13 @@ const ProductList = () => {
         // }
         // fetchData();
         dispatch(addAllProducts(productsList));
-    }, []);
+    }, [dispatch]);
 
     return (
-        <>
+        <div className="product-list-page">
             <Header />
             <div className="container mx-auto mt-16">
-                <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 gap-4">
+                <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 gap-4">
                     {products.map((product, index) => (
                         <Product
                             key={index}
@@ -78,7 +77,7 @@ const ProductList = () => {
                     ))}
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

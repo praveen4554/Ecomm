@@ -1,13 +1,50 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.logo {
+  width: 150px;
+  text-align: center;
+}
+
+.right-icons {
+  display: flex;
+  align-items: center;
+}
+
+.reactIcons {
+  margin: 0 10px;
+  cursor: pointer;
+  position: relative;
+}
+
 .shoppingCart {
-    float: right;
-    margin-top: 2%;
-  }
-  
-  .reactIcons {
-    width: 5em;
-    height: 4em;
-  }
-  
-  .count {
-    margin-left: 36%;
-  }
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 0.75em;
+  background: none;
+  color: black;
+}
+.product-list-page {
+  padding-top: 70px; 
+}
