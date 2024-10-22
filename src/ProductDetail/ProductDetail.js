@@ -43,142 +43,128 @@ const ProductDetail = () => {
     sizeOptions: ["XS", "S", "M", "L", "XL"],
   };
 
-  const recommendedProducts = [
-    {
-      title: "White Cozy Sweater",
-      image: "https://images.pexels.com/photos/1667088/pexels-photo-1667088.jpeg?auto=compress&cs=tinysrgb&w=600",
-      alt: "White sweater product",
-    },
-    {
-      title: "Black Shimmer Dress",
-      image: "https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      alt: "Black dress product",
-    },
-    {
-      title: "Summer Two-Piece Set",
-      image: "https://images.pexels.com/photos/3910071/pexels-photo-3910071.jpeg?auto=compress&cs=tinysrgb&w=600",
-      alt: "Two-piece outfit product",
-    },
-  ];
-
   const handleQuantityChange = (type) => {
     setQuantity((prev) => (type === "increment" ? prev + 1 : Math.max(prev - 1, 1)));
   };
 
   return (
+    <>
+      {/* CSS Styling for Thumbnails */}
+      <style jsx>{`
+        .custom-gallery .image-gallery-thumbnail {
+          width: 80px;
+          height: 80px;
+          object-fit: cover;
+          overflow: hidden;
+          border-radius: 5px;
+        }
+        .custom-gallery .image-gallery-thumbnail img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      `}</style>
 
-
-    <div className="container mx-auto max-w-[1200px] py-10 grid lg:grid-cols-2 gap-10">
-      {/* Left Section: Product Image */}
-      <div className="mx-auto px-4">
-        <ReactImageGallery
-          items={productDetail.imageGallery}
-          showBullets={true}
-          showFullscreenButton={true}
-          showPlayButton={false}
-          showThumbnails={true}
-          thumbnailPosition="bottom"
-        />
-      </div>
-
-      {/* Right Section: Product Details */}
-      <div className="container mx-auto max-w-[600px] py-10 px-5 text-blue-700">
-        <h1 className="text-4xl font-bold text-blue-900 mb-4">{productDetail.title}</h1>
-        <p className="text-2xl text-blue-700 mb-5">${productDetail.price.toFixed(2)}</p>
-
-        <div className="flex justify-end mb-4">
-          <a href="#reviews" className="text-sm text-blue-500">
-            JUMP TO REVIEWS
-          </a>
+      <div className="container mx-auto max-w-[1200px] py-10 grid lg:grid-cols-2 gap-10">
+        {/* Left Section: Product Image */}
+        <div className="mx-auto px-4">
+          <ReactImageGallery
+            items={productDetail.imageGallery}
+            showBullets={true}
+            showFullscreenButton={true}
+            showPlayButton={false}
+            showThumbnails={true}
+            thumbnailPosition="bottom"
+            additionalClass="custom-gallery"  // Apply custom CSS to gallery
+          />
         </div>
 
-        {/* Size Selector */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-blue-700 mb-1">SIZE</label>
-          <select
-            className="border px-3 py-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-700"
-            value={selectedSize}
-            onChange={(e) => setSelectedSize(e.target.value)}
-          >
-            {productDetail.sizeOptions.map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
+        {/* Right Section: Product Details */}
+        <div className="container mx-auto max-w-[600px] py-10 px-5 text-blue-700">
+          <h1 className="text-4xl font-bold text-blue-900 mb-4">
+            {productDetail.title}
+          </h1>
+          <p className="text-2xl text-blue-700 mb-5">
+            ${productDetail.price.toFixed(2)}
+          </p>
+
+          {/* Size Selector */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-blue-700 mb-1">
+              SIZE
+            </label>
+            <select
+              className="border px-3 py-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-700"
+              value={selectedSize}
+              onChange={(e) => setSelectedSize(e.target.value)}
+            >
+              {productDetail.sizeOptions.map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Quantity Selector */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-blue-700 mb-1">
+              QUANTITY
+            </label>
+            <div className="flex items-center gap-2">
+              <button
+                className="border px-3 py-1 rounded-md text-blue-700"
+                onClick={() => handleQuantityChange("decrement")}
+                disabled={quantity === 1}
+              >
+                −
+              </button>
+              <span className="text-lg text-blue-700">{quantity}</span>
+              <button
+                className="border px-3 py-1 rounded-md text-blue-700"
+                onClick={() => handleQuantityChange("increment")}
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* Add to Cart Button */}
+          <button className="w-full bg-blue-700 text-white py-3 rounded-md text-sm font-medium mt-4 mb-8">
+            <BiShoppingBag className="inline mr-2" />
+            ADD TO CART
+          </button>
+
+          {/* Product Description */}
+          <p className="text-sm text-blue-700 mb-6 whitespace-pre-line">
+            {productDetail.description}
+          </p>
+
+          {/* Product Details */}
+          <label className="block text-sm font-medium text-blue-700 mb-1">
+            DETAILS:
+          </label>
+          <ul className="list-disc list-inside text-sm text-blue-700 space-y-1 mb-6 ml-7">
+            {productDetail.details.map((detail, index) => (
+              <li key={index}>{detail}</li>
             ))}
-          </select>
-        </div>
+          </ul>
 
-        {/* Quantity Selector */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-blue-700 mb-1">QUANTITY</label>
-          <div className="flex items-center gap-2">
-            <button
-              className="border px-3 py-1 rounded-md text-blue-700"
-              onClick={() => handleQuantityChange("decrement")}
-              disabled={quantity === 1}
-            >
-              −
+          {/* Social Links */}
+          <div className="flex items-center space-x-4">
+            <button className="flex items-center text-blue-600">
+              <FaShareAlt className="mr-2" /> Share
             </button>
-            <span className="text-lg text-blue-700">{quantity}</span>
-            <button
-              className="border px-3 py-1 rounded-md text-blue-700"
-              onClick={() => handleQuantityChange("increment")}
-            >
-              +
+            <button className="flex items-center text-blue-600">
+              <FaTwitter className="mr-2" /> Tweet
+            </button>
+            <button className="flex items-center text-blue-600">
+              <FaPinterest className="mr-2" /> Pin it
             </button>
           </div>
         </div>
-
-        {/* Add to Cart Button */}
-        <button className="w-500 bg-blue-700 text-white py-3 rounded-md text-sm font-medium mt-4 mb-8">
-          <BiShoppingBag className="inline mr-2" />
-          ADD TO CART
-        </button>
-
-        {/* Product Description */}
-        <p className="text-sm text-blue-700 mb-6 whitespace-pre-line">
-          {productDetail.description}
-        </p>
-
-        {/* Product Details */}
-        <label className="block text-sm font-medium text-blue-700 mb-1">DETAILS:</label>
-        <ul className="list-disc list-inside text-sm text-blue-700 space-y-1 mb-6 ml-7">
-          {productDetail.details.map((detail, index) => (
-            <li key={index}>{detail}</li>
-          ))}
-        </ul>
-
-        {/* Social Links */}
-        <div className="flex items-center space-x-4">
-          <button className="flex items-center text-blue-600">
-            <FaShareAlt className="mr-2" /> Share
-          </button>
-          <button className="flex items-center text-blue-600">
-            <FaTwitter className="mr-2" /> Tweet
-          </button>
-          <button className="flex items-center text-blue-600">
-            <FaPinterest className="mr-2" /> Pin it
-          </button>
-        </div>
       </div>
-
-      {/* Recommended Products Section */}
-      <div className="col-span-2 mt-10">
-        <h2 className="text-center text-blue-500 text-2xl font-semibold mb-5">You Might Also Love</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {recommendedProducts.map((product, index) => (
-            <div key={index} className="border p-4 rounded-md">
-              <img
-                src={product.image}
-                alt={product.alt}
-                className="w-full h-64 object-cover mb-3 rounded-md"
-              />
-              <h3 className="text-lg font-medium">{product.title}</h3>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
