@@ -21,7 +21,7 @@ const Cart = () => {
   const removeQuantity = (item) => {
     dispatch(removeItem(item));
   };
-
+  console.log(cartItems);
   return (
     <div className="cart-wrapper">
       <div className="shopping-cart">

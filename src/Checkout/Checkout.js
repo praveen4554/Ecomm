@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { reset } from '../Redux/Reducer/Cart';
+import { db } from '../Firebase';
+import { collection, addDoc, updateDoc, doc, deleteDoc } from "firebase/firestore";
+
 
 const Checkout = () => {
     const cartItems = useSelector((state) => state.itemCart?.items);
@@ -53,21 +56,35 @@ const Checkout = () => {
             alert('Please fill in all required fields');
             return;
         }
-
+        console.log({
+            productList: cartItems,
+            emailId,
+            addressDetails: `${address} ${city} ${state} ${zip}`,
+        });
+        // try {
+        //     await axios.post('http://localhost:2999/getOrder', {
+        //         productList: cartItems,
+        //         emailId,
+        //         addressDetails: `${address} ${city} ${state} ${zip}`,
+        //     }, {
+        //         headers: { 'Content-Type': 'application/json' },
+        //     });
+        //     alert('Order placed successfully');
+        //     dispatch(reset());
+        //     navigate('/');
+        // } catch (err) {
+        //     console.error('Order placement failed:', err);
+        // }
         try {
-            await axios.post('http://localhost:2999/getOrder', {
+            const docRef = await addDoc(collection(db, "Orders"), {
                 productList: cartItems,
                 emailId,
                 addressDetails: `${address} ${city} ${state} ${zip}`,
-            }, {
-                headers: { 'Content-Type': 'application/json' },
             });
-            alert('Order placed successfully');
-            dispatch(reset());
-            navigate('/');
-        } catch (err) {
-            console.error('Order placement failed:', err);
-        }
+            console.log("Document written with ID: ", docRef.id);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
     };
 
     return (

@@ -1,22 +1,36 @@
 import { useEffect, useState } from 'react';
 import './OrderList.css';
 import axios from 'axios';
+import { db } from '../Firebase';
+import { collection, query, where } from "firebase/firestore";
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const OrderList = () => {
     const [orders, setOrders] = useState([]);
+    const [values, loading, error] = useCollectionData(
+        collection(db, 'Orders'),
+        { idField: 'id' }
+      );
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         try {
+    //             const list = await axios.get('http://localhost:2999/allOrders');
+    //             const result = list.data.orders.flatMap((val) => val.productList.map((product) =>{
+    //                 return { emailId: val.emailId, address: val.address, ...product}}));
+    //            setOrders([...result]);
+    //         } catch (err) {
+    //             console.log(err);
+    //         }
+    //     }
+    //     fetchData();
+    // }, []);
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const list = await axios.get('http://localhost:2999/allOrders');
-                const result = list.data.orders.flatMap((val) => val.productList.map((product) =>{
-                    return { emailId: val.emailId, address: val.address, ...product}}));
+        if(!loading && !error) {
+            const result = values.flatMap((val) => val?.productList?.map((product) =>{
+                    return { emailId: val.emailId, address: val.addressDetails, ...product}}));
                setOrders([...result]);
-            } catch (err) {
-                console.log(err);
-            }
         }
-        fetchData();
-    }, []);
+    },[values,loading,error])
     return (
         <div className="order-list">
             <section className="py-24 bg-white">
@@ -44,26 +58,26 @@ const OrderList = () => {
                             className="box p-8 rounded-3xl bg-gray-100 grid grid-cols-12 mb-7 cursor-pointer transition-all duration-500 hover:bg-indigo-50 max-lg:max-w-xl max-lg:mx-auto">
 
                             <div className="col-span-8 sm:col-span-4 lg:col-span-1 sm:row-span-4 lg:row-span-1">
-                                <img src={order.img} alt="earbuds image" width={105} height={99} className="max-lg:w-auto max-sm:mx-auto rounded-xl object-cover" />
+                                <img src={order?.img} alt="earbuds image" width={105} height={99} className="max-lg:w-auto max-sm:mx-auto rounded-xl object-cover" />
                             </div>
                             <div
                                 className="col-span-8 sm:col-span-4 lg:col-span-3 flex h-full justify-center pl-4 flex-col max-lg:items-center">
                                 <h5 className="font-manrope font-semibold text-2xl leading-9 text-black mb-1 whitespace-nowrap">
-                                   {order.productName}</h5>
-                                <p className="font-normal text-base leading-7 text-gray-600 max-md:text-center">{order.color}</p>
+                                   {order?.productName}</h5>
+                                <p className="font-normal text-base leading-7 text-gray-600 max-md:text-center">{order?.color}</p>
                             </div>
 
                             <div className="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center">
-                                <p className="font-semibold text-xl leading-8 text-black">${order.price}</p>
+                                <p className="font-semibold text-xl leading-8 text-black">${order?.price}</p>
                             </div>
                             <div className="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center ">
-                                <p className="font-semibold text-xl leading-8 text-indigo-600 text-center">{order.quantity}</p>
+                                <p className="font-semibold text-xl leading-8 text-indigo-600 text-center">{order?.quantity}</p>
                             </div>
                             <div className="col-span-8 sm:col-span-4 lg:col-span-2 flex items-center justify-center ">
-                                <p className="font-semibold text-xl leading-8 text-black">{order.emailId}</p>
+                                <p className="font-semibold text-xl leading-8 text-black">{order?.emailId}</p>
                             </div>
                             <div className="col-span-8 sm:col-span-4 lg:col-span-2 flex items-center justify-center ">
-                                <p className="font-semibold text-xl leading-8 text-black">{order.address}</p>
+                                <p className="font-semibold text-xl leading-8 text-black">{order?.address}</p>
                             </div>
                         </div>)}
                     </div>
