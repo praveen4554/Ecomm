@@ -50,26 +50,26 @@ const productsList = [
 const ProductList = () => {
     const products = useSelector((state) => state.products.productList);
     const dispatch = useDispatch();
-    // useEffect(() => {
-    //     // async function fetchData() {
-    //     //     try {
-    //     //         const list = await axios.get('http://localhost:2999/products');
-    //     //         dispatch(addAllProducts(list.data.products));
-    //     //     } catch (err) {
-    //     //         console.log(err);
-    //     //     }
-    //     // }
-    //     // fetchData();
-    //     dispatch(addAllProducts(productsList));
-    // }, [dispatch]);
-    const [values, loading, error] = useCollectionData(
-        collection(db, 'Products'),
-        { idField: '_id' }
-      );
     useEffect(() => {
-        if(!loading && !error)
-            dispatch(addAllProducts(values));
-    }, [values, loading, error]);
+        // async function fetchData() {
+        //     try {
+        //         const list = await axios.get('http://localhost:2999/products');
+        //         dispatch(addAllProducts(list.data.products));
+        //     } catch (err) {
+        //         console.log(err);
+        //     }
+        // }
+        // fetchData();
+        dispatch(addAllProducts(productsList));
+    }, [dispatch]);
+    // const [values, loading, error] = useCollectionData(
+    //     collection(db, 'Products'),
+    //     { idField: '_id' }
+    //   );
+    // useEffect(() => {
+    //     if(!loading && !error)
+    //         dispatch(addAllProducts(values));
+    // }, [values, loading, error]);
 
     return (
         <div className="product-list-page">
