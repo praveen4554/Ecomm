@@ -1,173 +1,219 @@
+import { useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiShoppingBag } from "react-icons/bi";
 import ReactImageGallery from "react-image-gallery";
-import Rater from "react-rater";
-import "react-rater/lib/react-rater.css";
 import { FaShareAlt, FaTwitter, FaPinterest } from "react-icons/fa";
 import "react-image-gallery/styles/css/image-gallery.css";
 
-
 const ProductDetail = () => {
-  const productDetailItem = {
-    images: [
+  const [selectedSize, setSelectedSize] = useState("S");
+  const [quantity, setQuantity] = useState(1);
+
+  const productDetail = {
+    title: "CECILIA TOP PINK PLAID",
+    price: 265.0,
+    description:
+      "PINK PLAID CECILIA TOP\n\nNOTE FROM THE KOCH GIRLS: WE WILL BE PAIRING THIS CECILIA TOP WITH THE MATCHING SHELBY SKIRT OR WITH HIGH WAISTED PANTS",
+    details: [
+      "CROP TOP",
+      "RUFFLE SLEEVES",
+      "BACK CENTER ZIPPER",
+      "PEACH WITH A SHINY FINISH",
+      "100% POLYESTER",
+      "DRY CLEAN",
+      "MADE IN AMERICA",
+    ],
+    imageGallery: [
       {
-        original:
-          "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=600",
-        thumbnail:
-          "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=600",
+        original: "https://shopkoch.com/cdn/shop/files/0K9A4654_900x.jpg?v=1723662427",
+        thumbnail: "https://shopkoch.com/cdn/shop/files/0K9A4654_900x.jpg?v=1723662427",
+        originalAlt: "Front view of Cecilia Top in Pink Plaid",
       },
       {
-        original:
-          "https://images.pexels.com/photos/1667088/pexels-photo-1667088.jpeg?auto=compress&cs=tinysrgb&w=600",
-        thumbnail:
-          "https://images.pexels.com/photos/1667088/pexels-photo-1667088.jpeg?auto=compress&cs=tinysrgb&w=600",
+        original: "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=600",
+        thumbnail: "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=600",
+        originalAlt: "Camera Body With XF18-55mm Lens – Black",
       },
       {
-        original:
-          "https://images.pexels.com/photos/2697787/pexels-photo-2697787.jpeg?auto=compress&cs=tinysrgb&w=600",
-        thumbnail:
-          "https://images.pexels.com/photos/2697787/pexels-photo-2697787.jpeg?auto=compress&cs=tinysrgb&w=600",
-      },
-      {
-        original:
-          "https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        thumbnail:
-          "https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      },
-      {
-        original:
-          "https://images.pexels.com/photos/3910071/pexels-photo-3910071.jpeg?auto=compress&cs=tinysrgb&w=600",
-        thumbnail:
-          "https://images.pexels.com/photos/3910071/pexels-photo-3910071.jpeg?auto=compress&cs=tinysrgb&w=600",
+        original: "https://images.pexels.com/photos/2697787/pexels-photo-2697787.jpeg?auto=compress&cs=tinysrgb&w=600",
+        thumbnail: "https://images.pexels.com/photos/2697787/pexels-photo-2697787.jpeg?auto=compress&cs=tinysrgb&w=600",
+        originalAlt: "Camera Body With XF18-55mm Lens – Black",
       },
     ],
-    title: "BIG ITALIAN SOFA",
-    reviews: "150",
-    availability: true,
-    brand: "apex",
-    category: "Sofa",
-    sku: "BE45VGTRK",
-    price: 450,
-    previousPrice: 599,
-    description:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem exercitationem voluptate sint eius ea assumenda provident eos repellendus qui neque! Velit ratione illo maiores voluptates commodi eaque illum, laudantium non!",
-    size: ["XS", "S", "M", "L", "XL"],
-    color: ["gray", "violet", "red"],
+    sizeOptions: ["XS", "S", "M", "L", "XL"],
   };
-  const plusMinuceButton =
-    "flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500";
+  const recommendedProducts = [
+    {
+      title: "White Cozy Sweater",
+      image: "https://images.pexels.com/photos/1667088/pexels-photo-1667088.jpeg?auto=compress&cs=tinysrgb&w=600",
+      alt: "White sweater product",
+    },
+    {
+      title: "Black Shimmer Dress",
+      image: "https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      alt: "Black dress product",
+    },
+    {
+      title: "Summer Two-Piece Set",
+      image: "https://images.pexels.com/photos/3910071/pexels-photo-3910071.jpeg?auto=compress&cs=tinysrgb&w=600",
+      alt: "Two-piece outfit product",
+    },
+  ];
+
+  const handleQuantityChange = (type) => {
+    setQuantity((prev) => (type === "increment" ? prev + 1 : Math.max(prev - 1, 1)));
+  };
+
   return (
     <>
-    <section className="container flex-grow mx-auto max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
-      {/* image gallery */}
-      <div className="container mx-auto px-4">
-        <ReactImageGallery
-          showBullets={false}
-          showFullscreenButton={false}
-          showPlayButton={false}
-          items={productDetailItem.images}
-        />
+      {/* CSS Styling for Fixed Image Sizes */}
+      <style jsx>{`
+        /* Main Image Container */
+        .custom-gallery .image-gallery-slide img {
+          width: 500px;
+          height: 500px;
+          object-fit: contain; /* Ensure the whole image fits without cropping */
+          max-width: 100%; /* Ensure responsiveness */
+          margin: 0 auto; /* Center the image */
+          background-color: #f0f0f0; /* Optional: Add background color for letterbox effect */
+        }
 
-        {/* /image gallery  */}
-      </div>
-      {/* description  */}
+        /* Thumbnail Container */
+        .custom-gallery .image-gallery-thumbnail {
+          width: 80px;
+          height: 80px;          overflow: hidden;
+          border-radius: 5px;
+          margin: 5px; /* Add spacing between thumbnails */
+        }
 
-      <div className="mx-auto px-5 lg:px-5">
-        <h2 className="pt-3 text-2xl font-bold lg:pt-0">
-          {productDetailItem.title}
-        </h2>
-        <div className="mt-1">
-          <div className="flex items-center">
-            <Rater
-              style={{ fontSize: "20px" }}
-              total={5}
-              interactive={false}
-              rating={3.5}
-            />
+        .custom-gallery .image-gallery-thumbnail img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain; /* Prevent thumbnail cropping */
+        }
 
-            <p className="ml-3 text-sm text-gray-400">
-              ({productDetailItem.reviews})
-            </p>
-          </div>
+        .custom-gallery .image-gallery-fullscreen-button {
+          display: none; /* Hide fullscreen button if not needed */
+        }
+      `}</style>
+
+      <div className="container mx-auto max-w-[1200px] py-10 grid lg:grid-cols-2 gap-10">
+        {/* Left Section: Product Image */}
+        <div className="mx-auto px-4">
+          <ReactImageGallery
+            items={productDetail.imageGallery}
+            showBullets={true}
+            showFullscreenButton={false} 
+            showPlayButton={false} 
+            showThumbnails={true}
+            thumbnailPosition="bottom"
+            additionalClass="custom-gallery" 
+          />
         </div>
-        <p className="mt-5 font-bold">
-          Availability:{" "}
-          {productDetailItem.availability ? (
-            <span className="text-green-600">In Stock </span>
-          ) : (
-            <span className="text-red-600">Expired</span>
-          )}
-        </p>
-        <p className="font-bold">
-          Brand: <span className="font-normal">{productDetailItem.brand}</span>
-        </p>
-        <p className="font-bold">
-          Cathegory:{" "}
-          <span className="font-normal">{productDetailItem.category}</span>
-        </p>
-        <p className="font-bold">
-          SKU: <span className="font-normal">{productDetailItem.sku}</span>
-        </p>
-        <p className="mt-4 text-4xl font-bold text-violet-900">
-          ${productDetailItem.price}{" "}
-          <span className="text-xs text-gray-400 line-through">
-            ${productDetailItem.previousPrice}
-          </span>
-        </p>
-        <p className="pt-5 text-sm leading-5 text-gray-500">
-          {productDetailItem.description}
-        </p>
-        <div className="mt-6">
-          <p className="pb-2 text-xs text-gray-500">Size</p>
-          <div className="flex gap-1">
-            {productDetailItem.size.map((x, index) => {
-              return (
-                <div
-                  key={index}
-                  className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500"
-                >
-                  {x}
-                </div>
-              );
-            })}
+
+        {/* Right Section: Product Details */}
+        <div className="container mx-auto max-w-[600px] py-10 px-5 text-blue-700">
+          <h1 className="text-4xl font-bold text-blue-900 mb-4">
+            {productDetail.title}
+          </h1>
+          <p className="text-2xl text-blue-700 mb-5">
+            ${productDetail.price.toFixed(2)}
+          </p>
+
+          {/* Size Selector */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-blue-700 mb-1">
+              SIZE
+            </label>
+            <select
+              className="border px-3 py-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-700"
+              value={selectedSize}
+              onChange={(e) => setSelectedSize(e.target.value)}
+            >
+              {productDetail.sizeOptions.map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
           </div>
-        </div>
-        <div className="mt-6">
-          <p className="pb-2 text-xs text-gray-500">Color</p>
-          <div className="flex gap-1">
-            {productDetailItem.color.map((x, index) => {
-              return (
-                <div
-                  key={index}
-                  className={`h-8 w-8 cursor-pointer border border-white bg-${x}-600 focus:ring-2 focus:ring-${x}-500 active:ring-2 active:ring-${x}-500`}
-                />
-              );
-            })}
-          </div>
-        </div>
-        <div className="mt-6">
-          <p className="pb-2 text-xs text-gray-500">Quantity</p>
-          <div className="flex">
-            <button className={`${plusMinuceButton}`}>−</button>
-            <div className="flex h-8 w-8 cursor-text items-center justify-center border-t border-b active:ring-gray-500">
-              1
+
+          {/* Quantity Selector */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-blue-700 mb-1">
+              QUANTITY
+            </label>
+            <div className="flex items-center gap-2">
+              <button
+                className="border px-3 py-1 rounded-md text-blue-700"
+                onClick={() => handleQuantityChange("decrement")}
+                disabled={quantity === 1}
+              >
+                −
+              </button>
+              <span className="text-lg text-blue-700">{quantity}</span>
+              <button
+                className="border px-3 py-1 rounded-md text-blue-700"
+                onClick={() => handleQuantityChange("increment")}
+              >
+                +
+              </button>
             </div>
-            <button className={`${plusMinuceButton}`}> +</button>
+          </div>
+
+          {/* Add to Cart Button */}
+          <button className="w-full bg-blue-700 text-white py-3 rounded-md text-sm font-medium mt-4 mb-8">
+            <BiShoppingBag className="inline mr-2" />
+            ADD TO CART
+          </button>
+
+          {/* Product Description */}
+          <p className="text-sm text-blue-700 mb-6 whitespace-pre-line">
+            {productDetail.description}
+          </p>
+
+          {/* Product Details */}
+          <label className="block text-sm font-medium text-blue-700 mb-1">
+            DETAILS:
+          </label>
+          <ul className="list-disc list-inside text-sm text-blue-700 space-y-1 mb-6 ml-7">
+            {productDetail.details.map((detail, index) => (
+              <li key={index}>{detail}</li>
+            ))}
+          </ul>
+
+          {/* Social Links */}
+          <div className="flex items-center space-x-4">
+            <button className="flex items-center text-blue-600">
+              <FaShareAlt className="mr-2" /> Share
+            </button>
+            <button className="flex items-center text-blue-600">
+              <FaTwitter className="mr-2" /> Tweet
+            </button>
+            <button className="flex items-center text-blue-600">
+              <FaPinterest className="mr-2" /> Pin it
+            </button>
           </div>
         </div>
-        <div className="mt-7 flex flex-row items-center gap-6">
-          <button className="flex h-12 w-1/3 items-center justify-center bg-violet-900 text-white duration-100 hover:bg-blue-800">
-            <BiShoppingBag className="mx-2" />
-            Add to cart
-          </button>
-          <button className="flex h-12 w-1/3 items-center justify-center bg-amber-400 duration-100 hover:bg-yellow-300">
-            <AiOutlineHeart className="mx-2" />
-            Wishlist
-          </button>
+         {/* Recommended Products Section */}
+      <div className="col-span-2 mt-10">
+        <h2 className="text-center text-blue-500 text-2xl font-semibold mb-5">You Might Also Love</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {recommendedProducts.map((product, index) => (
+            <div key={index} className="border p-4 rounded-md">
+              <img
+                src={product.image}
+                alt={product.alt}
+                className="w-full h-64 object-cover mb-3 rounded-md"
+              />
+              <h3 className="text-lg font-medium">{product.title}</h3>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
+      </div>
     </>
   );
 };
+
 export default ProductDetail;
