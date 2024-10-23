@@ -1,5 +1,13 @@
 import "./Header.css";
-import { FaShoppingCart, FaInstagram, FaPinterest, FaFacebook } from "react-icons/fa";
+import React, { useState } from 'react';
+import { NavLink } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa";
+import {
+  FaShoppingCart,
+  FaInstagram,
+  FaPinterest,
+  FaFacebook
+} from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,29 +17,94 @@ function Header() {
   const navigate = useNavigate();
   const navigateToCart = () => navigate("/cart");
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleMouseEnter = () => {
+    setDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownOpen(false);
+  };
+
   return (
-    <div className="header">
-      <div className="social-icons">
-        <IconContext.Provider value={{ className: "reactIcons" }}>
-          <FaInstagram />
-          <FaPinterest />
-          <FaFacebook />
-        </IconContext.Provider>
+    <>
+      <div className="header">
+        <div className="social-icons">
+          <IconContext.Provider value={{ className: "reactIcons" }}>
+            <FaInstagram />
+            <FaPinterest />
+            <FaFacebook />
+          </IconContext.Provider>
+        </div>
+        <img src="./Ahmay.jpeg" alt="logo" className="logo" />
+        <div className="right-icons">
+          <IconContext.Provider value={{ className: "reactIcons" }}>
+            <div className="shoppingCart" onClick={() => navigateToCart()}>
+              <FaShoppingCart />
+              <span className="count">({count})</span>
+            </div>
+          </IconContext.Provider>
+        </div>
       </div>
-      <img
-        src="https://shopkoch.com/cdn/shop/files/KOCH-blue_2x_d820dd49-8a98-47ea-88ae-f7c767d4f921_540x.png?v=1613723722"
-        alt="Koch Logo"
-        className="logo"
-      />
-      <div className="right-icons">
-        <IconContext.Provider value={{ className: "reactIcons" }}>
-          <div className="shoppingCart" onClick={() => navigateToCart()}>
-            <FaShoppingCart />
-            <span className="count">({count})</span>
+      <nav className="primary-nav">
+        <div
+          className="menu"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="menu-button">
+            <NavLink to="/">SHOP</NavLink>
+            <FaChevronRight
+              className={`icon ${dropdownOpen ? "rotate" : ""}`}
+            />
           </div>
-        </IconContext.Provider>
-      </div>
-    </div>
+          {dropdownOpen && (
+            <div className="dropdown-content">
+              <div className="dropdown-column">
+                <h4>STYLE</h4>
+                <a href="#link1">THE ERICA SKIRT</a>
+                <a href="#link2">TOPS</a>
+                <a href="#link3">BOTTOMS</a>
+                <a href="#link4">DRESSES + ROMPERS</a>
+                <a href="#link5">JACKETS</a>
+                <a href="#link6">PAJAMAS</a>
+                <a href="#link7">T-SHIRTS</a>
+                <a href="#link8">SWEATSHIRTS + LOUNGE</a>
+                <a href="#link9">SWEATERS</a>
+                <a href="#link10">ACCESSORIES + MORE</a>
+              </div>
+              <div className="dropdown-column">
+                <h4>COLLECTION</h4>
+                <a href="#link11">SUMMER ARCHIVES</a>
+                <a href="#link12">CAPSULE</a>
+              </div>
+              <div className="dropdown-column">
+                <h4>LOOKS WE LOVE</h4>
+                <a href="#link13">MATCHING SETS</a>
+                <a href="#link14">KOCH HOUSE EXCLUSIVES</a>
+              </div>
+              <div className="dropdown-column">
+                <h4>LAST CHANCE - 60% OFF</h4>
+                <a href="#link15">BOTTOMS</a>
+                <a href="#link16">DRESSES</a>
+                <a href="#link17">JACKETS</a>
+                <a href="#link18">LOUNGE</a>
+                <a href="#link19">TOPS</a>
+              </div>
+              <div className="dropdown-column">
+                <h4>NICOLE'S CLOSET</h4>
+              </div>
+            </div>
+          )}
+        </div>
+        <span className="nav-carat-small">
+          <i className="fa-thin fa-square-chevron-down"></i>
+        </span>
+        <NavLink to="about-us">WHAT'S NEW</NavLink>
+        <NavLink to="contact-us">Contact Us</NavLink>
+      </nav>
+    </>
   );
 }
 

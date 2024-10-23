@@ -3,7 +3,6 @@ import { BiShoppingBag } from "react-icons/bi";
 import ReactImageGallery from "react-image-gallery";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
-import Header from '../Header/Header';
 
 const ProductDetail = () => {
   const productDetailItem = {
@@ -56,7 +55,6 @@ const ProductDetail = () => {
     "flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500";
   return (
     <>
-    <Header/>
     <section className="container flex-grow mx-auto max-w-[1200px] border-b py-5 lg:grid lg:grid-cols-2 lg:py-10">
       {/* image gallery */}
       <div className="container mx-auto px-4">

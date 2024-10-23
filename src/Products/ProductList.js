@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import Product from "./Products";
 import { useSelector, useDispatch } from "react-redux";
 import { addAllProducts } from "../Redux/Reducer/Products";
-import Header from '../Header/Header';
 import axios from 'axios';
 import { db } from '../Firebase';
 import { collection, query, where } from "firebase/firestore";
@@ -73,7 +72,6 @@ const ProductList = () => {
 
     return (
         <div className="product-list-page">
-            <Header />
             <div className="container mx-auto mt-16">
                 <div className="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 gap-4">
                     {products.map((product, index) => (
