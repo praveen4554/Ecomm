@@ -26,7 +26,7 @@ const ProductDetail = () => {
     imageGallery: [
       {
         original: "https://shopkoch.com/cdn/shop/files/0K9A4654_900x.jpg?v=1723662427",
-        thumbnail: "https://shopkoch.com/cdn/shop/files/0K9A4654_150x.jpg?v=1723662427",
+        thumbnail: "https://shopkoch.com/cdn/shop/files/0K9A4654_900x.jpg?v=1723662427",
         originalAlt: "Front view of Cecilia Top in Pink Plaid",
       },
       {
@@ -42,6 +42,23 @@ const ProductDetail = () => {
     ],
     sizeOptions: ["XS", "S", "M", "L", "XL"],
   };
+  const recommendedProducts = [
+    {
+      title: "White Cozy Sweater",
+      image: "https://images.pexels.com/photos/1667088/pexels-photo-1667088.jpeg?auto=compress&cs=tinysrgb&w=600",
+      alt: "White sweater product",
+    },
+    {
+      title: "Black Shimmer Dress",
+      image: "https://images.pexels.com/photos/3373736/pexels-photo-3373736.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      alt: "Black dress product",
+    },
+    {
+      title: "Summer Two-Piece Set",
+      image: "https://images.pexels.com/photos/3910071/pexels-photo-3910071.jpeg?auto=compress&cs=tinysrgb&w=600",
+      alt: "Two-piece outfit product",
+    },
+  ];
 
   const handleQuantityChange = (type) => {
     setQuantity((prev) => (type === "increment" ? prev + 1 : Math.max(prev - 1, 1)));
@@ -49,19 +66,34 @@ const ProductDetail = () => {
 
   return (
     <>
-      {/* CSS Styling for Thumbnails */}
+      {/* CSS Styling for Fixed Image Sizes */}
       <style jsx>{`
+        /* Main Image Container */
+        .custom-gallery .image-gallery-slide img {
+          width: 500px;
+          height: 500px;
+          object-fit: contain; /* Ensure the whole image fits without cropping */
+          max-width: 100%; /* Ensure responsiveness */
+          margin: 0 auto; /* Center the image */
+          background-color: #f0f0f0; /* Optional: Add background color for letterbox effect */
+        }
+
+        /* Thumbnail Container */
         .custom-gallery .image-gallery-thumbnail {
           width: 80px;
-          height: 80px;
-          object-fit: cover;
-          overflow: hidden;
+          height: 80px;          overflow: hidden;
           border-radius: 5px;
+          margin: 5px; /* Add spacing between thumbnails */
         }
+
         .custom-gallery .image-gallery-thumbnail img {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain; /* Prevent thumbnail cropping */
+        }
+
+        .custom-gallery .image-gallery-fullscreen-button {
+          display: none; /* Hide fullscreen button if not needed */
         }
       `}</style>
 
@@ -71,11 +103,11 @@ const ProductDetail = () => {
           <ReactImageGallery
             items={productDetail.imageGallery}
             showBullets={true}
-            showFullscreenButton={true}
-            showPlayButton={false}
+            showFullscreenButton={false} 
+            showPlayButton={false} 
             showThumbnails={true}
             thumbnailPosition="bottom"
-            additionalClass="custom-gallery"  // Apply custom CSS to gallery
+            additionalClass="custom-gallery" 
           />
         </div>
 
@@ -163,6 +195,22 @@ const ProductDetail = () => {
             </button>
           </div>
         </div>
+         {/* Recommended Products Section */}
+      <div className="col-span-2 mt-10">
+        <h2 className="text-center text-blue-500 text-2xl font-semibold mb-5">You Might Also Love</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {recommendedProducts.map((product, index) => (
+            <div key={index} className="border p-4 rounded-md">
+              <img
+                src={product.image}
+                alt={product.alt}
+                className="w-full h-64 object-cover mb-3 rounded-md"
+              />
+              <h3 className="text-lg font-medium">{product.title}</h3>
+            </div>
+          ))}
+        </div>
+      </div>
       </div>
     </>
   );
