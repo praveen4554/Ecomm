@@ -3,6 +3,9 @@ import { BiShoppingBag } from "react-icons/bi";
 import ReactImageGallery from "react-image-gallery";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
+import { FaShareAlt, FaTwitter, FaPinterest } from "react-icons/fa";
+import "react-image-gallery/styles/css/image-gallery.css";
+
 
 const ProductDetail = () => {
   const productDetailItem = {
@@ -167,5 +170,4 @@ const ProductDetail = () => {
     </>
   );
 };
-
 export default ProductDetail;
