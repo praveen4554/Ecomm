@@ -7,7 +7,6 @@ import axios from 'axios';
 import { db } from '../Firebase';
 import { collection, query, where } from "firebase/firestore";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-
 const productsList = [
     {
         _id: "100001",
@@ -49,6 +48,10 @@ const productsList = [
 const ProductList = () => {
     const products = useSelector((state) => state.products.productList);
     const dispatch = useDispatch();
+    const [values, loading, error] = useCollectionData(
+        collection(db, 'Products'),
+        { idField: '_id' }
+      );
     useEffect(() => {
         // async function fetchData() {
         //     try {
@@ -65,7 +68,10 @@ const ProductList = () => {
     //     collection(db, 'Products'),
     //     { idField: '_id' }
     //   );
-    // useEffect(() => {
+    // // useEffect(() => {
+    // //     if(!loading && !error)
+    // //         dispatch(addAllProducts(values));
+    // // }, [values, loading, error]);
     //     if(!loading && !error)
     //         dispatch(addAllProducts(values));
     // }, [values, loading, error]);
