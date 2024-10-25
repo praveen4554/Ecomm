@@ -3,21 +3,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: white;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 1000;
 }
 
 .social-icons {
   display: flex;
   gap: 10px;
+  color: #023c9d;
+  font-size: 20px;
+ 
 }
 
 .logo {
-  width: 150px;
-  text-align: center;
+  height: 50px;
 }
 
 .right-icons {
@@ -25,26 +22,110 @@
   align-items: center;
 }
 
-.reactIcons {
-  margin: 0 10px;
+.shoppingCart {
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  position: relative;
+  color: #023c9d;
+  font-size: 20px;
 }
 
-.shoppingCart {
+.count {
+ position: absolute;
+ top: 1px;
+ right: 1px;
+ font-size: 0.75em;
+}
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+}
+.primary-nav a {
+  color: #023c9d !important;
+  margin: 0 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.menu {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.count {
+.menu-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu-button a {
+  font-size: 18px;
+  font-weight: bold;
+  color: blue;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+.menu-button .icon {
+  font-size: 15px;
+  color: blue;
+  transition: transform 0.2s;
+}
+
+.menu-button .icon.rotate {
+  transform: rotate(90deg);
+}
+
+.dropdown-content {
+  display: none;
   position: absolute;
-  top: -10px;
-  right: -10px;
-  font-size: 0.75em;
-  background: none;
-  color: black;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 100%;
+  left: 0;
+  width: 90vw;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  box-sizing: border-box;
 }
-.product-list-page {
-  padding-top: 70px; 
+
+.menu:hover .dropdown-content {
+  display: grid;
 }
+
+.dropdown-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-column h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: blue;
+  margin-left: 20px;
+}
+
+.dropdown-column a {
+  color: blue;
+  padding: 5px 0;
+  text-decoration: none;
+}
+
+.dropdown-column a:hover {
+  text-decoration: underline;
+}
+
+.nav-carat-small {
+  margin-left: 20px;
+}
+
+
