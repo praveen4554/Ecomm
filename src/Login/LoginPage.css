@@ -1,0 +1,124 @@
+#Login {
+    display: flex;
+    justify-content: space-between;
+    gap: 200px; 
+}
+#Login .just {
+    text-align: justify;
+}
+.Account {
+    padding: 0px 30px;
+    max-width: 1160px;
+    margin: 40px auto;
+}
+.Account.form{
+    padding: 20px 0px;
+}
+.just {
+    font-size: 20px;
+}
+.Account .col {
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    margin-right: 5%; 
+}
+.Account .col:last-child {
+    margin-right: 0; 
+}
+.align-left {
+    text-align: left;
+}
+.align-left p {
+    margin-top: 10px;
+}
+h2.theme {
+    color: #023c9d;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: left;
+}
+.ssw-social-login-widget {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.ssw-socialconnect > div {
+    display: inline-block;
+   margin-left: 20px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+}
+.ssw-socialconnect i {
+    font-size: 20px;
+    color: #fff;
+}
+
+.ssw-socialconnect{
+    color: white;
+    font-size: 40px;
+    margin-top: 10px;
+}
+
+.ssw-fbconnect {
+    display: inline-block;
+    background-color: #ddd;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+}
+
+.ssw-fbconnect { background: #3b5998; }
+.icon-google { background: #4285f4; }
+.icon-amazon { background: #ff9900; }
+
+.form-field {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 20px;
+    line-height: 1;
+    text-align: left;
+    position: relative;
+    margin-left: 1px;
+}
+.forgot-password {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.input-icon {
+    position: relative;
+}
+.input-icon i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #777;
+}
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px 10px 10px 35px; 
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.btn {
+    line-height: 1.5;
+    border-radius: 0px;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    border: 0;
+    font-weight: 700;
+    cursor: pointer;
+    background: #023c9d;
+    color: #fff;
+    padding: 7px 14px;
+    margin-top: 20px;
+}
+.action-bottom .note {
+    margin: 0 20px;
+}

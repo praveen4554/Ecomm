@@ -10,7 +10,11 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Checkout from './Checkout/Checkout';
 import OrderList from './Order/OrderList';
 import Header from './Header/Header';
-import Contact from './Products/ContactUs';
+import Home from './Home';
+import Contact from './Contact/ContactUs';
+import LoginPage from './Login/LoginPage';
+import Register from './Rigester/Register';
+
 
 const Layout = () => {
   return (
@@ -28,12 +32,16 @@ function App() {
     path: "/",
     element: <Layout />, 
     children: [
-    { path: "/", element: <ProductList /> },
+    { path:'/',element:<Home />},
     { path: "/productDetails", element: <ProductDetail /> },
     { path: "/cart", element: <Cart /> },
     { path: "/checkout", element: <Checkout /> },
     { path: "/order", element: <OrderList /> },
     { path: "/contact-us", element: <Contact /> },
+    { path: "/login-page", element: <LoginPage /> },
+    { path: "/signup", element: <Register /> },
+
+
 
   ]
   }

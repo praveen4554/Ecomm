@@ -48,13 +48,14 @@ function Header() {
         </div>
       </div>
       <nav className="primary-nav">
+           <NavLink to="/">HOME</NavLink>
         <div
           className="menu"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <div className="menu-button">
-            <NavLink to="/">SHOP</NavLink>
+            <NavLink to="shop-page">SHOP</NavLink>
             <FaChevronRight
               className={`icon ${dropdownOpen ? "rotate" : ""}`}
             />
@@ -102,7 +103,7 @@ function Header() {
           <i className="fa-thin fa-square-chevron-down"></i>
         </span>
         <NavLink to="about-us">WHAT'S NEW</NavLink>
-        <NavLink to="contact-us">Contact Us</NavLink>
+        <NavLink to="contact-us">CONTACT US</NavLink>
       </nav>
     </>
   );
