@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { reset } from '../Redux/Reducer/Cart';
 import { db } from '../Firebase';
 import { collection, addDoc, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { NavLink } from 'react-router-dom';
+
 
 
 const Checkout = () => {
@@ -105,7 +107,11 @@ const Checkout = () => {
                     </button>
                 </div>
                 <p className="text-center text-gray-500">—— OR ——</p>
+                <div className='flex flex-wrap justify-between items-baseline'>
                 <h2 className="text-xl font-semibold mb-4">Contact</h2>
+                <NavLink className="underline text-blue-600" to="/login-page">Log in</NavLink>
+
+                </div>
                 <input
                     type="email"
                     placeholder="Email"

@@ -1,0 +1,100 @@
+.register-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background-color: #f4f4f4;
+  }
+  
+.wrapper {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+  }
+  .ssw-social-login-widget {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.ssw-socialconnect > div {
+    display: inline-block;
+   margin-left: 20px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+}
+.ssw-socialconnect i {
+    font-size: 20px;
+    color: #fff;
+}
+
+.ssw-socialconnect{
+    color: white;
+    font-size: 40px;
+    margin-top: 10px;
+}
+
+.ssw-fbconnect {
+    display: inline-block;
+    background-color: #ddd;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 5px;
+}
+h2.heading {
+  color: #023c9d;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+}
+.para{
+  color: #023c9d;
+  font-size: 15px;
+  text-align: center;
+}
+
+.ssw-fbconnect { background: #3b5998; }
+.icon-google { background: #4285f4; }
+.icon-amazon { background: #ff9900; }
+  
+  
+  input[type="text"],[type="email"],[type="password"]{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .create{
+    text-align: left;
+  }
+  
+  .button {
+    line-height: 1.5;
+    border-radius: 0px;
+    display: inline-block;
+    text-decoration: none;
+    border: 0;
+    font-weight: 700;
+    cursor: pointer;
+    background: #023c9d;
+    color: #fff;
+    padding: 7px 14px;
+    margin-top: 20px;
+  }
+  
+  
+  .subscribe {
+    text-align: left;
+    margin-top: 20px;
+  }
+  .subscribe label{
+    margin-left: 10px;
+  }
+
+  
