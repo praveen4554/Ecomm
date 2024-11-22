@@ -55,7 +55,7 @@ function Header() {
           onMouseLeave={handleMouseLeave}
         >
           <div className="menu-button">
-            <NavLink to="shop-page">SHOP</NavLink>
+            <NavLink to="/shop-page">SHOP</NavLink>
             <FaChevronRight
               className={`icon ${dropdownOpen ? "rotate" : ""}`}
             />
@@ -102,8 +102,9 @@ function Header() {
         <span className="nav-carat-small">
           <i className="fa-thin fa-square-chevron-down"></i>
         </span>
-        <NavLink to="about-us">WHAT'S NEW</NavLink>
-        <NavLink to="contact-us">CONTACT US</NavLink>
+        <NavLink to="/about-us">WHAT'S NEW</NavLink>
+        <NavLink to="/contact-us">CONTACT US</NavLink>
+        <NavLink to="/sales-report">Sales Report</NavLink>
       </nav>
     </>
   );

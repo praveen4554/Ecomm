@@ -14,6 +14,7 @@ import Home from './Home';
 import Contact from './Contact/ContactUs';
 import LoginPage from './Login/LoginPage';
 import Register from './Rigester/Register';
+import SalesReport from './SalesReport/SalesReport';
 
 
 const Layout = () => {
@@ -40,6 +41,7 @@ function App() {
     { path: "/contact-us", element: <Contact /> },
     { path: "/login-page", element: <LoginPage /> },
     { path: "/signup", element: <Register /> },
+    {path:"/sales-report",element: <SalesReport />}
 
 
 
