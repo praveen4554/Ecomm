@@ -104,6 +104,7 @@ function Header() {
         </span>
         <NavLink to="about-us">WHAT'S NEW</NavLink>
         <NavLink to="contact-us">CONTACT US</NavLink>
+        <NavLink to="supplier-management">SUPPLIER MANAGEMENT</NavLink>
       </nav>
     </>
   );
