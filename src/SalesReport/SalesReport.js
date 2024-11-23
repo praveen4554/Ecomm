@@ -10,6 +10,7 @@ const SalesReport = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [selectedProduct, setSelectedProduct] = useState("All Products");
+    const [filteredData, setFilteredData] = useState([]);
 
     // Variables for dynamic data
     const reportNumber = REPORT_DETAILS.reportNumber; // Report number variable
@@ -24,15 +25,50 @@ const SalesReport = () => {
         { name: "Product 5", quantitySold: 50, salePrice: 500, revenue: 25000, date: "2023-10-05" },
     ];
 
-    // Filtered sales data
-    const filteredData = salesData.filter((item) => {
-        const isInDateRange =
-            (!startDate || new Date(item.date) >= new Date(startDate)) &&
-            (!endDate || new Date(item.date) <= new Date(endDate));
-        const isProductSelected =
-            selectedProduct === "All Products" || item.name === selectedProduct;
-        return isInDateRange && isProductSelected;
-    });
+    // Generate Report Function
+    const handleGenerateReport = () => {
+        const filtered = salesData.filter((item) => {
+            const isInDateRange =
+                (!startDate || new Date(item.date) >= new Date(startDate)) &&
+                (!endDate || new Date(item.date) <= new Date(endDate));
+            const isProductSelected =
+                selectedProduct === "All Products" || item.name === selectedProduct;
+            return isInDateRange && isProductSelected;
+        });
+        setFilteredData(filtered);
+    };
+
+    // Export to XLS
+    const handleExportToXLS = () => {
+        const ws = XLSX.utils.json_to_sheet(filteredData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sales Data");
+        XLSX.writeFile(wb, "Sales_Report.xlsx");
+    };
+
+    // Export to PDF
+    const handleExportToPDF = () => {
+        const doc = new jsPDF();
+        doc.text("Sales Report", 20, 10);
+        const data = filteredData.map((item) => [
+            item.name,
+            item.quantitySold,
+            `$${item.salePrice}`,
+            `$${item.revenue}`,
+            item.date,
+        ]);
+        doc.autoTable({
+            head: [TABLE_HEADERS],
+            body: data,
+            startY: 20,
+        });
+        doc.save("Sales_Report.pdf");
+    };
+
+    // Printable View
+    const handlePrintableView = () => {
+        window.print();
+    };
 
     return (
         <div className="sales-report-container">
@@ -49,8 +85,8 @@ const SalesReport = () => {
             {/* Report Info */}
             <div className="report-info-section">
                 <h2>Sales Report</h2>
-                <p>Report Number: {reportNumber}</p> {/* Using report number variable */}
-                <p>Date: {currentDate}</p> {/* Using date variable */}
+                <p>Report Number: {reportNumber}</p>
+                <p>Date: {currentDate}</p>
             </div>
 
             {/* Filters */}
@@ -85,6 +121,21 @@ const SalesReport = () => {
                             </option>
                         ))}
                     </select>
+                    <button className="generate-report-btn" onClick={handleGenerateReport}>Generate Report</button>
+                </div>
+
+                {/* Buttons */}
+                <div className="export-buttons-inline">
+                    
+                    <button onClick={handleExportToXLS} disabled={!filteredData.length}>
+                        Export to XLS
+                    </button>
+                    <button onClick={handleExportToPDF} disabled={!filteredData.length}>
+                        Export to PDF
+                    </button>
+                    <button onClick={handlePrintableView} disabled={!filteredData.length}>
+                        Printable View
+                    </button>
                 </div>
             </div>
 
