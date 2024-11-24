@@ -6,16 +6,16 @@ import "jspdf-autotable";
 import { COMPANY_DETAILS, REPORT_DETAILS, PRODUCTS, TABLE_HEADERS } from "./constants";
 
 const SalesReport = () => {
-    // State variables
+
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [selectedProduct, setSelectedProduct] = useState("All Products");
     const [filteredData, setFilteredData] = useState([]);
 
-    // Variables for dynamic data
-    const reportNumber = REPORT_DETAILS.reportNumber; // Report number variable
-    const currentDate = REPORT_DETAILS.reportDate; // Report date variable
-    const productOptions = PRODUCTS; // Array for dropdown options
+
+    const reportNumber = REPORT_DETAILS.reportNumber; 
+    const currentDate = REPORT_DETAILS.reportDate; 
+    const productOptions = PRODUCTS; 
 
     const salesData = [
         { name: "Product 1", quantitySold: 10, salePrice: 100, revenue: 1000, date: "2023-10-01" },
@@ -25,7 +25,7 @@ const SalesReport = () => {
         { name: "Product 5", quantitySold: 50, salePrice: 500, revenue: 25000, date: "2023-10-05" },
     ];
 
-    // Generate Report Function
+
     const handleGenerateReport = () => {
         const filtered = salesData.filter((item) => {
             const isInDateRange =
@@ -38,7 +38,7 @@ const SalesReport = () => {
         setFilteredData(filtered);
     };
 
-    // Export to XLS
+
     const handleExportToXLS = () => {
         const ws = XLSX.utils.json_to_sheet(filteredData);
         const wb = XLSX.utils.book_new();
@@ -46,7 +46,7 @@ const SalesReport = () => {
         XLSX.writeFile(wb, "Sales_Report.xlsx");
     };
 
-    // Export to PDF
+
     const handleExportToPDF = () => {
         const doc = new jsPDF();
         doc.text("Sales Report", 20, 10);
@@ -65,14 +65,25 @@ const SalesReport = () => {
         doc.save("Sales_Report.pdf");
     };
 
-    // Printable View
+
     const handlePrintableView = () => {
         window.print();
     };
 
+
+    const tableRows = filteredData.map((item, index) => (
+        <tr key={index}>
+            <td>{item.name}</td>
+            <td>{item.quantitySold}</td>
+            <td>${item.salePrice}</td>
+            <td>${item.revenue}</td>
+            <td>{item.date}</td>
+        </tr>
+    ));
+
     return (
         <div className="sales-report-container">
-            {/* Company Details */}
+
             <div className="header-section">
                 <h1>{COMPANY_DETAILS.name}</h1>
                 <p>{COMPANY_DETAILS.addressLine1}</p>
@@ -82,14 +93,14 @@ const SalesReport = () => {
                 <p>Email: {COMPANY_DETAILS.email}</p>
             </div>
 
-            {/* Report Info */}
+
             <div className="report-info-section">
                 <h2>Sales Report</h2>
                 <p>Report Number: {reportNumber}</p>
                 <p>Date: {currentDate}</p>
             </div>
 
-            {/* Filters */}
+
             <div className="filters-section">
                 <h3>Sales Data</h3>
                 <div className="filters-inline">
@@ -124,9 +135,7 @@ const SalesReport = () => {
                     <button className="generate-report-btn" onClick={handleGenerateReport}>Generate Report</button>
                 </div>
 
-                {/* Buttons */}
                 <div className="export-buttons-inline">
-                    
                     <button onClick={handleExportToXLS} disabled={!filteredData.length}>
                         Export to XLS
                     </button>
@@ -139,7 +148,6 @@ const SalesReport = () => {
                 </div>
             </div>
 
-            {/* Sales Details */}
             <div className="sales-details-section">
                 <h3>Sales Details</h3>
                 <table>
@@ -150,17 +158,7 @@ const SalesReport = () => {
                             ))}
                         </tr>
                     </thead>
-                    <tbody>
-                        {filteredData.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.name}</td>
-                                <td>{item.quantitySold}</td>
-                                <td>${item.salePrice}</td>
-                                <td>${item.revenue}</td>
-                                <td>{item.date}</td>
-                            </tr>
-                        ))}
-                    </tbody>
+                    <tbody>{tableRows}</tbody>
                 </table>
             </div>
         </div>
