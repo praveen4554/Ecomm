@@ -1,0 +1,96 @@
+.supplier-container {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.154);
+}
+
+h1 {
+  font-size: 35px;
+  color: #333;
+}
+
+h2 {
+  color: #333;
+  font-size: 1.5em;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+.crud-buttons {
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+button[type="btn"] {
+  background-color: #f44336;
+  color: white;
+}
+
+button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+
+input:invalid:required::before,
+textarea:invalid:required::before {
+  content: 'Please fill out this field.';
+  position: absolute;
+  background: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 100;
+  transform: translateY(-120%);
+}
+
