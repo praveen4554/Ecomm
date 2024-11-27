@@ -1,0 +1,163 @@
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Container */
+.sales-report-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Header Section */
+.header-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-section h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+}
+
+.header-section p {
+    margin: 5px 0;
+    color: #666;
+}
+
+/* Report Info Section */
+.report-info-section {
+    margin-bottom: 20px;
+}
+
+.report-info-section h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+.report-info-section p {
+    margin: 5px 0;
+    color: #666;
+    
+}
+
+/* Filters Section */
+.filters-section {
+    margin-bottom: 20px;
+    
+}
+
+.filters-section h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.filters-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.filters-inline label {
+    /* font-weight: bold; */
+    margin-right: 5px;
+    cursor: default;
+}
+
+.filters-inline input,
+.filters-inline select {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.generate-report-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.generate-report-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Sales Details Section */
+.sales-details-section {
+    margin-top: 20px;
+}
+
+.sales-details-section h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.sales-details-section table {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.sales-details-section th,
+.sales-details-section td {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 12px;
+    text-align: left;
+}
+
+.sales-details-section th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+}
+
+/* .sales-details-section tr:nth-child(even) {
+    background-color: #f9f9f9;
+} */
+
+/* Export Buttons */
+
+ .export-buttons-inline {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin: 20px 0;
+    text-align: right;
+}
+
+.export-buttons-inline button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.export-buttons-inline button:hover {
+    background-color: #218838;
+}
