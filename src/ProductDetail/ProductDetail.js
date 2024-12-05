@@ -5,6 +5,7 @@ import ReactImageGallery from "react-image-gallery";
 import { FaShareAlt, FaTwitter, FaPinterest } from "react-icons/fa";
 import "react-image-gallery/styles/css/image-gallery.css"; // Default styles for the gallery
 import "../ProductDetail/ProductDetails.css"; // Custom CSS for the component
+import "./ProductDetail.css";
 
 const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState("S");
@@ -67,38 +68,20 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="Product-container">
-      {/* Product Image Section */}
-      <div className="gallery-section">
-        <ReactImageGallery
-          items={productDetail.imageGallery}
-          showBullets={true}
-          showFullscreenButton={false}
-          showPlayButton={false}
-          showThumbnails={true}
-          thumbnailPosition="bottom"
-          additionalClass="custom-gallery"
-        />
-      </div>
+    <>
 
-      {/* Product Details Section */}
-      <div className="product-detail">
-        <h1>{productDetail.title}</h1>
-        <p>${productDetail.price.toFixed(2)}</p>
-
-        {/* Size Selector */}
-        <div className="size-selector">
-          <label>SIZE</label>
-          <select
-            value={selectedSize}
-            onChange={(e) => setSelectedSize(e.target.value)}
-          >
-            {productDetail.sizeOptions.map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </select>
+      <div className="container mx-auto max-w-[1200px] py-10 grid lg:grid-cols-2 gap-10">
+        {/* Left Section: Product Image */}
+        <div className="mx-auto px-4">
+          <ReactImageGallery
+            items={productDetail.imageGallery}
+            showBullets={true}
+            showFullscreenButton={false} 
+            showPlayButton={false} 
+            showThumbnails={true}
+            thumbnailPosition="bottom"
+            additionalClass="custom-gallery" 
+          />
         </div>
 
         {/* Quantity Selector */}
@@ -163,7 +146,7 @@ const ProductDetail = () => {
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

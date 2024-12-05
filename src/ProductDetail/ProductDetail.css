@@ -1,0 +1,31 @@
+.custom-gallery .image-gallery-slide img {
+    width: 500px;
+    height: 500px;
+    object-fit: contain; /* Ensure the whole image fits without cropping */
+    max-width: 100%; /* Ensure responsiveness */
+    margin: 0 auto; /* Center the image */
+    background-color: #f0f0f0; /* Optional: Add background color for letterbox effect */
+  }
+
+  /* Thumbnail Container */
+  .custom-gallery .image-gallery-thumbnail {
+    width: 80px;
+    height: 80px;          overflow: hidden;
+    border-radius: 5px;
+    margin: 5px; /* Add spacing between thumbnails */
+  }
+
+  .custom-gallery .image-gallery-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Prevent thumbnail cropping */
+  }
+
+  .custom-gallery .image-gallery-fullscreen-button {
+    display: none; /* Hide fullscreen button if not needed */
+  }
+
+  .image-gallery-thumbnail-image {
+    width: 150px !important;
+    height: 50px !important;
+  }
