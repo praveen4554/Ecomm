@@ -106,6 +106,7 @@ function Header() {
         <NavLink to="contact-us">CONTACT US</NavLink>
         <NavLink to="supplier-management">SUPPLIER MANAGEMENT</NavLink>
         <NavLink to="sales-report">Sales Report</NavLink>
+        <NavLink to="Product-Mangement">Product Management</NavLink>
 
       </nav>
     </>
