@@ -5,6 +5,7 @@ import ReactImageGallery from "react-image-gallery";
 import { FaShareAlt, FaTwitter, FaPinterest } from "react-icons/fa";
 import "react-image-gallery/styles/css/image-gallery.css"; // Default styles for the gallery
 import "../ProductDetail/ProductDetails.css"; // Custom CSS for the component
+import "react-image-gallery/styles/css/image-gallery.css";
 import "./ProductDetail.css";
 
 const ProductDetail = () => {
