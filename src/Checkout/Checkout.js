@@ -109,7 +109,7 @@ const Checkout = () => {
                 <p className="text-center text-gray-500">—— OR ——</p>
                 <div className='flex flex-wrap justify-between items-baseline'>
                 <h2 className="text-xl font-semibold mb-4">Contact</h2>
-                <NavLink className="underline text-blue-600" to="/login-page">Log in</NavLink>
+                <NavLink className="underline text-blue-600" to="/login">Log in</NavLink>
 
                 </div>
                 <input
