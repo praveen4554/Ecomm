@@ -59,8 +59,30 @@ h2.heading {
 }
 
 .ssw-fbconnect { background: #3b5998; }
-.icon-google { background: #4285f4; }
-.icon-amazon { background: #ff9900; }
+.icon-Twitter {
+  background-color: #000;
+}
+.icon-google {
+  background-color: #db4437;
+  border: 1px solid #ddd; 
+}
+
+.icon-Yahoo {
+  background-color: #410093;
+}
+
+.icon-Tumblr {
+  background-color: #35465c;
+}
+
+.icon-amazon {
+  background-color: #ff9900;
+}
+
+.icon-Line {
+  background-color: #00c300;
+}
+
   
   
   input[type="text"],[type="email"],[type="password"]{

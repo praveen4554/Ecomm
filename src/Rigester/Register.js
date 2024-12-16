@@ -9,21 +9,26 @@ function Register() {
         <h2 className="heading">CREATE ACCOUNT</h2>
         <p className='para'>ALREADY HAVE AN ACCOUNT? <a href="#">SIGN IN HERE</a>.</p>
         <div className="ssw-social-login-widget">
-            <div className="ssw-socialconnect">
+          <div className="ssw-socialconnect">
             <div className="ssw-fbconnect"><a><FaFacebook /></a></div>
-              <div className="icon-google "><a><FaGoogle /></a></div>
-              <div className="icon-amazon"><a><FaAmazon /></a></div>
-            </div>
+            <div className="icon-Twitter"><a><FaTwitter /></a></div>
+            <div className="icon-google "><a><FaGoogle /></a></div>
+            <div className="icon-Yahoo"><a><FaYahoo /></a></div>
+            <div className="icon-Tumblr"><a><FaTumblr /></a></div>
+            <div className="icon-amazon"><a><FaAmazon /></a></div>
+            <div className="icon-Line"><a><FaLine /></a></div>
+            
           </div>
+        </div>
         <form>
           <input type="text" placeholder="First Name" required />
           <input type="text" placeholder="Last Name" required />
           <input type="email" placeholder="Email" required />
           <input type="password" placeholder="Password" required />
           <div className='create'>
-          <button type="submit" className="button">CREATE</button>
+            <button type="submit" className="button">CREATE</button>
           </div>
-         
+
           <div className="subscribe">
             <input type="checkbox" id="newsletter" />
             <label htmlFor="newsletter">SUBSCRIBE FOR NEWSLETTER</label>

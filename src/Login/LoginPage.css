@@ -1,124 +1,151 @@
-#Login {
+  /* Container Styling */
+  .login-container {
+      width: 400px;
+      margin: 50px auto;
+      text-align: center;
+  }
+
+  .login-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #003087;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .signup-link {
+      color: #333;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+  }
+
+  .signup-link a {
+      color: #003087;
+      text-decoration: none;
+      font-weight: bold;
+  }
+
+  .signup-link a:hover {
+      text-decoration: underline;
+  }
+
+  /* Social Icons */
+  .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+  }
+
+  .icon {
+      font-size: 2rem;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+  }
+
+  .icon:hover {
+      transform: scale(1.1);
+  }
+
+  .facebook {
+      background-color: #3b5998;
+  }
+
+  .twitter {
+      background-color: #000;
+  }
+
+  .google {
+      background-color: #db4437;
+      border: 1px solid #ddd;
+      
+  }
+
+  .yahoo {
+      background-color: #410093;
+  }
+
+  .tumblr {
+      background-color: #35465c;
+  }
+
+  .amazon {
+      background-color: #ff9900;
+  }
+
+  .line {
+      background-color: #00c300;
+  }
+
+  /* Form Styling */
+  .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+  }
+
+  .login-form input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+  }
+
+  .login-form input:focus {
+      border-color: #003087;
+      box-shadow: 0 0 3px #003087;
+  }
+
+  .forgot-link {
+      font-size: 0.9rem;
+      color: #003087;
+      text-decoration: none;
+      text-align: right;
+      width: 100%;
+  }
+
+  .forgot-link:hover {
+      text-decoration: underline;
+  }
+
+  /* Buttons */
+  .buttons {
     display: flex;
     justify-content: space-between;
-    gap: 200px; 
-}
-#Login .just {
-    text-align: justify;
-}
-.Account {
-    padding: 0px 30px;
-    max-width: 1160px;
-    margin: 40px auto;
-}
-.Account.form{
-    padding: 20px 0px;
-}
-.just {
-    font-size: 20px;
-}
-.Account .col {
-    display: inline-block;
-    width: 45%;
-    vertical-align: top;
-    margin-right: 5%; 
-}
-.Account .col:last-child {
-    margin-right: 0; 
-}
-.align-left {
-    text-align: left;
-}
-.align-left p {
-    margin-top: 10px;
-}
-h2.theme {
-    color: #023c9d;
-    font-weight: bold;
-    font-size: 24px;
-    text-align: left;
-}
-.ssw-social-login-widget {
-    margin-bottom: 20px;
-    text-align: left;
-}
-.ssw-socialconnect > div {
-    display: inline-block;
-   margin-left: 20px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    border-radius: 5px;
-}
-.ssw-socialconnect i {
-    font-size: 20px;
-    color: #fff;
-}
+    align-items: center;
+    margin-top: 15px;
+    width: 100%;
+  }
 
-.ssw-socialconnect{
+  .btn.sign-in {
+    background-color: #003087;
     color: white;
-    font-size: 40px;
-    margin-top: 10px;
-}
-
-.ssw-fbconnect {
-    display: inline-block;
-    background-color: #ddd;
-    text-align: center;
-    line-height: 40px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
     border-radius: 5px;
-}
-
-.ssw-fbconnect { background: #3b5998; }
-.icon-google { background: #4285f4; }
-.icon-amazon { background: #ff9900; }
-
-.form-field {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto 20px;
-    line-height: 1;
-    text-align: left;
-    position: relative;
-    margin-left: 1px;
-}
-.forgot-password {
-    text-align: right;
-    margin-top: 10px;
-}
-
-.input-icon {
-    position: relative;
-}
-.input-icon i {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: #777;
-}
-input[type="email"], input[type="password"] {
-    width: 100%;
-    padding: 10px 10px 10px 35px; 
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-.btn {
-    line-height: 1.5;
-    border-radius: 0px;
-    display: inline-block;
-    text-decoration: none;
-    text-align: center;
-    border: 0;
-    font-weight: 700;
+    padding: 12px 30px;
     cursor: pointer;
-    background: #023c9d;
-    color: #fff;
-    padding: 7px 14px;
-    margin-top: 20px;
-}
-.action-bottom .note {
-    margin: 0 20px;
-}
+    transition: background-color 0.3s;
+    letter-spacing: 1px;
+  }
+
+  .btn:hover {
+      background-color: #002366;
+  }
+
+  .return-store {
+      font-size: 0.9rem;
+      color: #003087;
+      text-decoration: none;
+      font-weight: bold;
+  }
+
+  .return-store:hover {
+      text-decoration: underline;
+  }
