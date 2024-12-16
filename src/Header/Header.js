@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const count = useSelector((state) => state.itemCart?.count);
+  const userRole = useSelector((state) => state.user?.role);
   const navigate = useNavigate();
   const navigateToCart = () => navigate("/cart");
 
@@ -104,9 +105,11 @@ function Header() {
         </span>
         <NavLink to="about-us">WHAT'S NEW</NavLink>
         <NavLink to="contact-us">CONTACT US</NavLink>
-        <NavLink to="supplier-management">SUPPLIER MANAGEMENT</NavLink>
+        { userRole === 'admin' && <><NavLink to="supplier-management">SUPPLIER MANAGEMENT</NavLink>
         <NavLink to="sales-report">Sales Report</NavLink>
         <NavLink to="Product-Mangement">Product Management</NavLink>
+        </>}
+        {!userRole && <NavLink to="login">Login</NavLink> }
 
       </nav>
     </>

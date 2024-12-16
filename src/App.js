@@ -41,15 +41,11 @@ function App() {
     { path: "/checkout", element: <Checkout /> },
     { path: "/order", element: <OrderList /> },
     { path: "/contact-us", element: <Contact /> },
-    { path: "/login-page", element: <LoginPage /> },
+    { path: "/login", element: <LoginPage /> },
     { path: "/signup", element: <Register /> },
     { path: "/supplier-management", element: <SupplierManagement /> },
     {path:"/sales-report",element: <SalesReport />},
     {path: "/Product-Mangement", element: <ProductManagement />},
-    
-
-
-
   ]
   }
   ]);
