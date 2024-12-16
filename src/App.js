@@ -16,6 +16,7 @@ import LoginPage from './Login/LoginPage';
 import Register from './Rigester/Register';
 import SupplierManagement from './SupplierManagement/SupplierManagement';
 import SalesReport from './SalesReport/SalesReport';
+import ProductManagement from './ProductMangement/ProductManagement';
 
 
 const Layout = () => {
@@ -42,9 +43,10 @@ function App() {
     { path: "/contact-us", element: <Contact /> },
     { path: "/login-page", element: <LoginPage /> },
     { path: "/signup", element: <Register /> },
-    {path:"/sales-report",element: <SalesReport />},
     { path: "/supplier-management", element: <SupplierManagement /> },
-
+    {path:"/sales-report",element: <SalesReport />},
+    {path: "/Product-Mangement", element: <ProductManagement />},
+    
 
 
 
